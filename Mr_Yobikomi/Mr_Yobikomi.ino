@@ -12,14 +12,18 @@
 // ピン位置の定義
 #define PIEZO 5
 #define BUTTON 2
+#define LED 3
 int switchstate = 0;
 
 void change_switchstate() {  
-  switchstate ^= 1;
+  // HIGHの場合はLOWに、LOWの場合はHIGHにスイッチ状態を変更
+  switchstate ^= HIGH;
   // 現在のswitchstateをSerialMonitorに出力
-  // ループ中はLEDを点灯させるのでも良いかも(回路が複雑になるけど)
   Serial.print("switchstate=");
   Serial.println(switchstate);
+  // スイッチ状態がHIGHの場合はLEDを点灯、LOWの場合は消灯
+  digitalWrite(LED, switchstate);
+  // ボタン押下時に切り替わりが頻繁に起きないようにするため0.5s待つ
   delay(500);
 }
 
@@ -30,6 +34,8 @@ void setup() {
   // 5ピンに音圧素子、2ピンにボタンを配置
   pinMode(PIEZO,OUTPUT);
   pinMode(BUTTON,INPUT);
+  // 3ピンにLEDを配置
+  pinMode(LED,OUTPUT);
   // 割り込み関数
   attachInterrupt(0, change_switchstate, RISING);
 }
