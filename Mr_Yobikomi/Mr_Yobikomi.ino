@@ -13,17 +13,30 @@
 #define PIEZO 5
 #define BUTTON 2
 int switchstate = 0;
+
+void change_switchstate() {  
+  switchstate ^= 1;
+  // 現在のswitchstateをSerialMonitorに出力
+  // ループ中はLEDを点灯させるのでも良いかも(回路が複雑になるけど)
+  Serial.print("switchstate=");
+  Serial.println(switchstate);
+  delay(500);
+}
+
 void setup() {
+  // DEBUG(シリアルモニタ)
+  Serial.begin(9600);
   // 初期設定
   // 5ピンに音圧素子、2ピンにボタンを配置
   pinMode(PIEZO,OUTPUT);
   pinMode(BUTTON,INPUT);
+  // 割り込み関数
+  attachInterrupt(0, change_switchstate, RISING);
 }
 
 void loop() {
   // ボタンが押されているときに鳴らす
-  switchstate = digitalRead(2);
-  if ( switchstate == HIGH ) {
+  while ( switchstate == HIGH ) {
     // ララーシラファ#ラ
     tone(PIEZO,NOTE_A4,OEIGHTH);
     delay(OEIGHTH);
@@ -114,7 +127,7 @@ void loop() {
     delay(QUARTER);
     tone(PIEZO,NOTE_E4,OEIGHTH);
     delay(QUARTER);
-    // 次のループまで1s待つ
-    delay(1000);
+//    // 次のループまで1s待つ
+//    delay(1000);
   }
 }
