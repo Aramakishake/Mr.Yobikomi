@@ -3,6 +3,7 @@
 #define OEIGHTH 240 // 8分
 #define QUARTER 480 // 4分
 #define HALF 960 // 2分
+/*
 // 音程(多分Dメジャーキー)
 #define NOTE_D4 294
 #define NOTE_E4 330
@@ -14,6 +15,9 @@
 #define NOTE_D3 147
 #define NOTE_FS3 185
 #define NOTE_A3 220
+*/
+// 音程一帯が不要になった
+// 理由：Tone.hでDefineしているため
 // ピン位置の定義
  // メロディ用ピエゾ素子
 #define PIEZO 5
@@ -67,7 +71,7 @@ void loop() {
 void play_Mr_Yobikomi2() {
   // 呼び込みくんの曲を演奏(ハーモニー込み)
   for (int ii=0; ii < 2; ii++){
-    // ララーシラファ#ラ
+    // ララーシラファ#ラ * 2
     piezo1.play(NOTE_A4, OEIGHTH);
     piezo2.play(NOTE_D3, OEIGHTH);
     delay(OEIGHTH);
@@ -127,6 +131,153 @@ void play_Mr_Yobikomi2() {
 
   piezo1.play(NOTE_E4, OEIGHTH);
   piezo2.play(NOTE_FS3, OEIGHTH);
+  delay(OEIGHTH);
+
+  // ファ#ーララー
+  piezo1.play(NOTE_FS4, QUARTER+OEIGHTH);
+  piezo2.play(NOTE_B2, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_FS3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_D3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_A4, OEIGHTH);
+  piezo2.play(NOTE_FS3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_A4, HALF);
+  piezo2.play(NOTE_B2, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_FS3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_D3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_FS3, OEIGHTH);
+  delay(OEIGHTH);
+
+  // レレレミファ#ー (G)
+  piezo1.play(NOTE_D4, OEIGHTH);
+  piezo2.play(NOTE_G3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_D4, OEIGHTH);
+  piezo2.play(NOTE_D3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_D4, OEIGHTH);
+  piezo2.play(NOTE_B2, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_E4, OEIGHTH);
+  piezo2.play(NOTE_D3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_FS4, QUARTER + OEIGHTH);
+  piezo2.play(NOTE_G3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_D3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_B2, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_D3, OEIGHTH);
+  delay(OEIGHTH);
+
+  // レレレミファ#ー (D)
+  piezo1.play(NOTE_D4, OEIGHTH);
+  piezo2.play(NOTE_D3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_D4, OEIGHTH);
+  piezo2.play(NOTE_A3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_D4, OEIGHTH);
+  piezo2.play(NOTE_FS3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_E4, OEIGHTH);
+  piezo2.play(NOTE_A3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_FS4, QUARTER + OEIGHTH);
+  piezo2.play(NOTE_D3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_A3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_FS3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_A3, OEIGHTH);
+  delay(OEIGHTH);
+
+  // ミミミレミファ#(E)
+  piezo1.play(NOTE_E4, OEIGHTH);
+  piezo2.play(NOTE_E3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_E4, OEIGHTH);
+  piezo2.play(NOTE_B3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_E4, OEIGHTH);
+  piezo2.play(NOTE_GS3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_D4, OEIGHTH);
+  piezo2.play(NOTE_B3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_E4, OEIGHTH);
+  piezo2.play(NOTE_E3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_B3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_FS4, OEIGHTH);
+  piezo2.play(NOTE_GS3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_B3, OEIGHTH);
+  delay(OEIGHTH);
+  // ラソファ#ミ(Asus4 A)
+  piezo1.play(NOTE_A4, OEIGHTH);
+  piezo2.play(NOTE_A3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_E4, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_G4, OEIGHTH);
+  piezo2.play(NOTE_D4, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_E4, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_FS4, OEIGHTH);
+  piezo2.play(NOTE_A3, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_E4, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo1.play(NOTE_E4, OEIGHTH);
+  piezo2.play(NOTE_CS4, OEIGHTH);
+  delay(OEIGHTH);
+
+  piezo2.play(NOTE_E4, OEIGHTH);
   delay(OEIGHTH);
 }
 /*
