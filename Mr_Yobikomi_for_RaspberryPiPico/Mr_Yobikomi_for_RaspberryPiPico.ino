@@ -56,6 +56,9 @@ void setup() {
   pinMode(LED,OUTPUT);
   // 割り込み関数
   attachInterrupt(0, change_switchstate, RISING);
+  // テストで音を鳴らしてみる
+  tone(PIEZO, NOTE_A4, OEIGHTH);
+  tone(PIEZO2, NOTE_D3, OEIGHTH);
 }
 
 void loop() {
@@ -72,17 +75,21 @@ void play_Mr_Yobikomi2() {
   // 呼び込みくんの曲を演奏(ハーモニー込み)
   for (int ii=0; ii < 2; ii++){
     // ララーシラファ#ラ * 2
+    tone(PIEZO, NOTE_A4, OEIGHTH);
+    tone(PIEZO2, NOTE_D3, OEIGHTH);
     // piezo1.play(NOTE_A4, OEIGHTH);
     // piezo2.play(NOTE_D3, OEIGHTH);
     delay(OEIGHTH);
 
     tone(PIEZO, NOTE_A4, QUARTER);
+    tone(PIEZO2, NOTE_A3, OEIGHTH);
     // piezo1.play(NOTE_A4, QUARTER);
     // piezo2.play(NOTE_A3, OEIGHTH);
     delay(OEIGHTH);
 
+    tone(PIEZO2, NOTE_FS3, OEIGHTH);
   //   piezo2.play(NOTE_FS3, OEIGHTH);
-  //   delay(OEIGHTH);
+    delay(OEIGHTH);
 
   //   piezo1.play(NOTE_B4, OEIGHTH);
   //   piezo2.play(NOTE_A3, OEIGHTH);
