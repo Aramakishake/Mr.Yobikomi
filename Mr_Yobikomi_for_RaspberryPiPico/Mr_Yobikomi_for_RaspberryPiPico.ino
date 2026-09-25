@@ -23,23 +23,28 @@
 #define PIEZO 5
  // コーラス用ピエゾ素子
 #define PIEZO2 6
-#define BUTTON 2
-#define LED 3
+#define BUTTON 1
+#define LED 0
 
-int switchstate = 0;
 // Tone piezo1;
 // Tone piezo2;
 
-void change_switchstate() {  
-  // HIGHの場合はLOWに、LOWの場合はHIGHにスイッチ状態を変更
+// void change_switchstate() {  
+//   // HIGHの場合はLOWに、LOWの場合はHIGHにスイッチ状態を変更
+//   switchstate ^= HIGH;
+//   // 現在のswitchstateをSerialMonitorに出力
+//   Serial.print("switchstate=");
+//   Serial.println(switchstate);
+//   // スイッチ状態がHIGHの場合はLEDを点灯、LOWの場合は消灯
+//   digitalWrite(LED, switchstate);
+//   // ボタン押下時に切り替わりが頻繁に起きないようにするため1s待つ
+//   delay(1000);
+// }
+
+volatile int switchstate = 0;
+
+void change_switchstate() {
   switchstate ^= HIGH;
-  // 現在のswitchstateをSerialMonitorに出力
-  Serial.print("switchstate=");
-  Serial.println(switchstate);
-  // スイッチ状態がHIGHの場合はLEDを点灯、LOWの場合は消灯
-  digitalWrite(LED, switchstate);
-  // ボタン押下時に切り替わりが頻繁に起きないようにするため1s待つ
-  delay(1000);
 }
 
 void setup() {
@@ -55,7 +60,7 @@ void setup() {
   // 3ピンにLEDを配置
   pinMode(LED,OUTPUT);
   // 割り込み関数
-  attachInterrupt(0, change_switchstate, RISING);
+  // attachInterrupt(digitalPinToInterrupt(BUTTON), change_switchstate, RISING);
   // テストで音を鳴らしてみる
   tone(PIEZO, NOTE_A4, OEIGHTH);
   tone(PIEZO2, NOTE_D3, OEIGHTH);
@@ -63,6 +68,12 @@ void setup() {
 
 void loop() {
   // ボタンが押されているときに鳴らす
+  Serial.println(switchstate);
+  digitalWrite(LED, HIGH);
+  delay(100);
+  digitalWrite(LED, LOW);
+  delay(100);
+  switchstate = digitalRead(BUTTON);
   while ( switchstate == HIGH ) {
     play_Mr_Yobikomi2();
   }
