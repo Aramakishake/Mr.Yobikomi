@@ -54,8 +54,6 @@ void setup() {
   // 5ピンに音圧素子、2ピンにボタンを配置
   pinMode(PIEZO,OUTPUT);
   pinMode(PIEZO2,OUTPUT);
-  // piezo1.begin(PIEZO);
-  // piezo2.begin(PIEZO2);
   pinMode(BUTTON,INPUT);
   // 3ピンにLEDを配置
   pinMode(LED,OUTPUT);
@@ -102,202 +100,202 @@ void play_Mr_Yobikomi2() {
   //   piezo2.play(NOTE_FS3, OEIGHTH);
     delay(OEIGHTH);
 
-  //   piezo1.play(NOTE_B4, OEIGHTH);
-  //   piezo2.play(NOTE_A3, OEIGHTH);
-  //   delay(OEIGHTH);
+    tone(PIEZO, NOTE_B4, OEIGHTH)
+    tone(PIEZO2, NOTE_A3, OEIGHTH)
+    delay(OEIGHTH);
 
-  //   piezo1.play(NOTE_A4, OEIGHTH);
-  //   piezo2.play(NOTE_D3, OEIGHTH);
-  //   delay(OEIGHTH);
+    tone(PIEZO, NOTE_A4, OEIGHTH)
+    tone(PIEZO2, NOTE_D3, OEIGHTH)
+    delay(OEIGHTH);
 
-  //   piezo1.play(NOTE_FS4, QUARTER);
-  //   piezo2.play(NOTE_A3, OEIGHTH);
-  //   delay(OEIGHTH);
+    tone(PIEZO, NOTE_FS4, QUARTER)
+    tone(PIEZO2, NOTE_A3, OEIGHTH)
+    delay(OEIGHTH);
 
-  //   piezo1.play(NOTE_A4, OEIGHTH);
-  //   piezo2.play(NOTE_FS3, OEIGHTH);
-  //   delay(OEIGHTH);
+    tone(PIEZO, NOTE_A4, OEIGHTH)
+    tone(PIEZO2, NOTE_FS3, OEIGHTH)
+    delay(OEIGHTH)
 
-  //   piezo2.play(NOTE_A3, OEIGHTH);
-  //   delay(OEIGHTH);
+    tone(PIEZO2, NOTE_A3, OEIGHTH)
+    delay(OEIGHTH)
   }
   // // レレレミファ#ーミ
-  // piezo1.play(NOTE_D4, OEIGHTH);
-  // piezo2.play(NOTE_B2, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_D4, OEIGHTH)
+  tone(PIEZO2, NOTE_B2, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_D4, QUARTER);
-  // piezo2.play(NOTE_FS3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_D4, QUARTER)
+  tone(PIEZO2, NOTE_FS3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_D4, QUARTER);
-  // piezo2.play(NOTE_D3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_D4, QUARTER)
+  tone(PIEZO2, NOTE_D3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_E4, OEIGHTH);
-  // piezo2.play(NOTE_FS3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_E4, OEIGHTH)
+  tone(PIEZO2, NOTE_FS3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_FS4, OEIGHTH + QUARTER);
-  // piezo2.play(NOTE_B2, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_FS4, OEIGHTH + QUARTER)
+  tone(PIEZO2, NOTE_B2, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_FS3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_FS3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_D3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_D3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_E4, OEIGHTH);
-  // piezo2.play(NOTE_FS3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_E4, OEIGHTH)
+  tone(PIEZO2, NOTE_FS3, OEIGHTH)
+  delay(OEIGHTH)
 
   // // ファ#ーララー
-  // piezo1.play(NOTE_FS4, QUARTER+OEIGHTH);
-  // piezo2.play(NOTE_B2, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_FS4, QUARTER+OEIGHTH)
+  tone(PIEZO2, NOTE_B2, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_FS3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_FS3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_D3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_D3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_A4, OEIGHTH);
-  // piezo2.play(NOTE_FS3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_A4, OEIGHTH)
+  tone(PIEZO2, NOTE_FS3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_A4, HALF);
-  // piezo2.play(NOTE_B2, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_A4, HALF)
+  tone(PIEZO2, NOTE_B2, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_FS3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_FS3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_D3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_D3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_FS3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_FS3, OEIGHTH)
+  delay(OEIGHTH)
 
   // // レレレミファ#ー (G)
-  // piezo1.play(NOTE_D4, OEIGHTH);
-  // piezo2.play(NOTE_G3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_D4, OEIGHTH)
+  tone(PIEZO2, NOTE_G3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_D4, OEIGHTH);
-  // piezo2.play(NOTE_D3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_D4, OEIGHTH)
+  tone(PIEZO2, NOTE_D3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_D4, OEIGHTH);
-  // piezo2.play(NOTE_B2, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_D4, OEIGHTH)
+  tone(PIEZO2, NOTE_B2, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_E4, OEIGHTH);
-  // piezo2.play(NOTE_D3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_E4, OEIGHTH)
+  tone(PIEZO2, NOTE_D3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_FS4, QUARTER + OEIGHTH);
-  // piezo2.play(NOTE_G3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_FS4, QUARTER + OEIGHTH)
+  tone(PIEZO2, NOTE_G3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_D3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_D3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_B2, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_B2, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_D3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_D3, OEIGHTH)
+  delay(OEIGHTH)
 
   // // レレレミファ#ー (D)
-  // piezo1.play(NOTE_D4, OEIGHTH);
-  // piezo2.play(NOTE_D3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_D4, OEIGHTH)
+  tone(PIEZO2, NOTE_D3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_D4, OEIGHTH);
-  // piezo2.play(NOTE_A3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_D4, OEIGHTH)
+  tone(PIEZO2, NOTE_A3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_D4, OEIGHTH);
-  // piezo2.play(NOTE_FS3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_D4, OEIGHTH)
+  tone(PIEZO2, NOTE_FS3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_E4, OEIGHTH);
-  // piezo2.play(NOTE_A3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_E4, OEIGHTH)
+  tone(PIEZO2, NOTE_A3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_FS4, QUARTER + OEIGHTH);
-  // piezo2.play(NOTE_D3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_FS4, QUARTER + OEIGHTH)
+  tone(PIEZO2, NOTE_D3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_A3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_A3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_FS3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_FS3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_A3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_A3, OEIGHTH)
+  delay(OEIGHTH)
 
   // // ミミミレミファ#(E)
-  // piezo1.play(NOTE_E4, OEIGHTH);
-  // piezo2.play(NOTE_E3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_E4, OEIGHTH)
+  tone(PIEZO2, NOTE_E3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_E4, OEIGHTH);
-  // piezo2.play(NOTE_B3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_E4, OEIGHTH)
+  tone(PIEZO2, NOTE_B3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_E4, OEIGHTH);
-  // piezo2.play(NOTE_GS3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_E4, OEIGHTH)
+  tone(PIEZO2, NOTE_GS3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_D4, OEIGHTH);
-  // piezo2.play(NOTE_B3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_D4, OEIGHTH)
+  tone(PIEZO2, NOTE_B3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_E4, OEIGHTH);
-  // piezo2.play(NOTE_E3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_E4, OEIGHTH)
+  tone(PIEZO2, NOTE_E3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_B3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_B3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_FS4, OEIGHTH);
-  // piezo2.play(NOTE_GS3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_FS4, OEIGHTH)
+  tone(PIEZO2, NOTE_GS3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_B3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_B3, OEIGHTH)
+  delay(OEIGHTH)
   // // ラソファ#ミ(Asus4 A)
-  // piezo1.play(NOTE_A4, OEIGHTH);
-  // piezo2.play(NOTE_A3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_A4, OEIGHTH)
+  tone(PIEZO2, NOTE_A3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_E4, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_E4, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_G4, OEIGHTH);
-  // piezo2.play(NOTE_D4, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_G4, OEIGHTH)
+  tone(PIEZO2, NOTE_D4, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_E4, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_E4, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_FS4, OEIGHTH);
-  // piezo2.play(NOTE_A3, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_FS4, OEIGHTH)
+  tone(PIEZO2, NOTE_A3, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_E4, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_E4, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo1.play(NOTE_E4, OEIGHTH);
-  // piezo2.play(NOTE_CS4, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO, NOTE_E4, OEIGHTH)
+  tone(PIEZO2, NOTE_CS4, OEIGHTH)
+  delay(OEIGHTH)
 
-  // piezo2.play(NOTE_E4, OEIGHTH);
-  // delay(OEIGHTH);
+  tone(PIEZO2, NOTE_E4, OEIGHTH)
+  delay(OEIGHTH)
 }
 /*
 void play_Mr_Yobikomi() {
