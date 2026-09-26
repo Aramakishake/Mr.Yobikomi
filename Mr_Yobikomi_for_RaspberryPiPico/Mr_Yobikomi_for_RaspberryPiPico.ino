@@ -1,4 +1,5 @@
 // #include <Tone.h>
+#include "hardware/pwm.h"
 // テンポ(BPM 125)
 #define OEIGHTH 240 // 8分
 #define QUARTER 480 // 4分
@@ -34,6 +35,18 @@
 // Tone piezo1;
 // Tone piezo2;
 
+// 楽譜
+struct Note {
+  uint melodyFreq;
+  uint baseFreq;
+  uint duration;
+};
+
+// Aメロを楽譜化
+Note scorePhraseA[] = {
+  {NOTE_A4, NOTE_D3, OEIGHTH}
+};
+
 volatile bool switchstate = 0;
 
 void change_switchstate() {  
@@ -48,6 +61,36 @@ void change_switchstate() {
   // // ボタン押下時に切り替わりが頻繁に起きないようにするため1s待つ
   // delay(1000);
 }
+
+// const int scoreLength = sizeof(score) / sizeof(score[0]);
+
+// void setPWMTone(uint pin, uint freq) {
+
+//   uint slice = pwm_gpio_to_slice_num(pin);
+//   uint channel = pwm_gpio_to_channel(pin);
+
+//   gpio_set_function(pin, GPIO_FUNC_PWM);
+
+//   if (freq == 0) {
+//     pwm_set_enabled(slice, false);
+//     return;
+//   }
+
+//   uint32_t clock = 125000000;
+
+//   uint32_t divider = 4;
+//   uint32_t wrap = clock / divider / freq;
+
+//   pwm_set_clkdiv(slice, divider);
+//   pwm_set_wrap(slice, wrap);
+
+//   pwm_set_chan_level(
+//       slice,
+//       channel,
+//       wrap / 2);
+
+//   pwm_set_enabled(slice, true);
+// }
 
 void setup() {
   // DEBUG(シリアルモニタ)
