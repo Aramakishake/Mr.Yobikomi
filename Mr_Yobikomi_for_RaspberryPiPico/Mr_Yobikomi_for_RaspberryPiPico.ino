@@ -44,13 +44,13 @@ struct Note {
 // Aメロを楽譜化
 Note scorePhraseA[] = {
   {NOTE_A4  , NOTE_D3 , OEIGHTH },
-  {NOTE_A4  , NOTE_A3 , QUARTER },
+  {NOTE_A4  , NOTE_A3 , OEIGHTH },
   {NOTE_A4  , NOTE_FS3, OEIGHTH },
   {NOTE_B4  , NOTE_A3 , OEIGHTH },
   {NOTE_A4  , NOTE_D3 , OEIGHTH },
   {NOTE_FS4 , NOTE_A3 , OEIGHTH },
   {NOTE_A4  , NOTE_FS3, OEIGHTH },
-  {NOTE_A4  , NOTE_A3 , OEIGHTH }
+  {NOTE_A4  , NOTE_A3 , OEIGHTH },
 };
 
 volatile unsigned int lastInterrupt = 0;
@@ -90,11 +90,14 @@ void setPWMTone(uint pin, uint freq) {
 
   uint32_t clock = 125000000;
 
-  uint32_t divider = 4;
+  uint32_t divider = 16;
   uint32_t wrap = clock / divider / freq;
 
   pwm_set_clkdiv(slice, divider);
   pwm_set_wrap(slice, wrap);
+
+  Serial.print("slice=");
+  Serial.println(slice);
 
   pwm_set_chan_level(
       slice,
@@ -108,7 +111,11 @@ void playNote(const Note& note)
 {
     setPWMTone(PIEZO,  note.melodyFreq);
     setPWMTone(PIEZO2, note.bassFreq);
-
+    // Debug
+    // Serial.print("melodyFreq=");
+    // Serial.println(note.melodyFreq);
+    // Serial.print("bassFreq=");
+    // Serial.println(note.bassFreq);
     delay(note.duration);
 }
 
@@ -135,13 +142,16 @@ void setup() {
   // 割り込み関数
   attachInterrupt(digitalPinToInterrupt(BUTTON), change_switchstate, RISING);
   // テストで音を鳴らしてみる
-  tone(PIEZO, NOTE_A4, OEIGHTH);
-  tone(PIEZO2, NOTE_D3, OEIGHTH);
+  setPWMTone(PIEZO, 660);
+  setPWMTone(PIEZO2, 440);
+  delay(50);
+  stopPWMTone(PIEZO);
+  stopPWMTone(PIEZO2);
 }
 
 void loop() {
-  // ボタンが押されているときに鳴らす
-  Serial.println(switchstate);
+  // (DEBUG)スイッチ状態を表示
+  // Serial.println(switchstate);
   digitalWrite(LED, HIGH);
   delay(100);
   digitalWrite(LED, LOW);
