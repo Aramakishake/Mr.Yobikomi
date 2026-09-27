@@ -37,13 +37,20 @@
 // 楽譜
 struct Note {
   uint melodyFreq;
-  uint baseFreq;
+  uint bassFreq;
   uint duration;
 };
 
 // Aメロを楽譜化
 Note scorePhraseA[] = {
-  {NOTE_A4, NOTE_D3, OEIGHTH}
+  {NOTE_A4  , NOTE_D3 , OEIGHTH },
+  {NOTE_A4  , NOTE_A3 , QUARTER },
+  {NOTE_A4  , NOTE_FS3, OEIGHTH },
+  {NOTE_B4  , NOTE_A3 , OEIGHTH },
+  {NOTE_A4  , NOTE_D3 , OEIGHTH },
+  {NOTE_FS4 , NOTE_A3 , OEIGHTH },
+  {NOTE_A4  , NOTE_FS3, OEIGHTH },
+  {NOTE_A4  , NOTE_A3 , OEIGHTH }
 };
 
 volatile unsigned int lastInterrupt = 0;
@@ -57,7 +64,6 @@ void change_switchstate() {
   if (now - lastInterrupt < BUTTON_DULATION) {
     return;
   }
-
   // スイッチ反転
   switchstate = !switchstate;
   // スイッチがHIGHの場合はLEDを点灯、LOWの場合は消灯
@@ -68,35 +74,53 @@ void change_switchstate() {
 
 
 // PWMを使用して複数ブザーを鳴らす方式
-// const int scoreLength = sizeof(score) / sizeof(score[0]);
+const int scoreLength = sizeof(scorePhraseA) / sizeof(scorePhraseA[0]);
 
-// void setPWMTone(uint pin, uint freq) {
+void setPWMTone(uint pin, uint freq) {
 
-//   uint slice = pwm_gpio_to_slice_num(pin);
-//   uint channel = pwm_gpio_to_channel(pin);
+  uint slice = pwm_gpio_to_slice_num(pin);
+  uint channel = pwm_gpio_to_channel(pin);
 
-//   gpio_set_function(pin, GPIO_FUNC_PWM);
+  gpio_set_function(pin, GPIO_FUNC_PWM);
 
-//   if (freq == 0) {
-//     pwm_set_enabled(slice, false);
-//     return;
-//   }
+  if (freq == 0) {
+    pwm_set_enabled(slice, false);
+    return;
+  }
 
-//   uint32_t clock = 125000000;
+  uint32_t clock = 125000000;
 
-//   uint32_t divider = 4;
-//   uint32_t wrap = clock / divider / freq;
+  uint32_t divider = 4;
+  uint32_t wrap = clock / divider / freq;
 
-//   pwm_set_clkdiv(slice, divider);
-//   pwm_set_wrap(slice, wrap);
+  pwm_set_clkdiv(slice, divider);
+  pwm_set_wrap(slice, wrap);
 
-//   pwm_set_chan_level(
-//       slice,
-//       channel,
-//       wrap / 2);
+  pwm_set_chan_level(
+      slice,
+      channel,
+      wrap / 2);
 
-//   pwm_set_enabled(slice, true);
-// }
+  pwm_set_enabled(slice, true);
+}
+
+void playNote(const Note& note)
+{
+    setPWMTone(PIEZO,  note.melodyFreq);
+    setPWMTone(PIEZO2, note.bassFreq);
+
+    delay(note.duration);
+}
+
+void stopPWMTone(uint pin)
+{
+    uint slice = pwm_gpio_to_slice_num(pin);
+
+    pwm_set_enabled(slice, false);
+
+    // 念のためLOWに戻す
+    digitalWrite(pin, LOW);
+}
 
 void setup() {
   // DEBUG(シリアルモニタ)
@@ -124,7 +148,16 @@ void loop() {
   delay(100);
   switchstate = digitalRead(BUTTON);
   while ( switchstate == HIGH ) {
-    play_Mr_Yobikomi2();
+    // play_Mr_Yobikomi2();
+    playMrYobikomiPWM();
+    stopPWMTone(PIEZO);
+    stopPWMTone(PIEZO2);
+  }
+}
+
+void playMrYobikomiPWM() {
+  for (int i = 0; i < scoreLength; i++) {
+    playNote(scorePhraseA[i]);
   }
 }
 
@@ -137,18 +170,13 @@ void play_Mr_Yobikomi2() {
     // ララーシラファ#ラ * 2
     tone(PIEZO, NOTE_A4, OEIGHTH);
     // tone(PIEZO2, NOTE_D3, OEIGHTH);
-    // piezo1.play(NOTE_A4, OEIGHTH);
-    // piezo2.play(NOTE_D3, OEIGHTH);
     delay(OEIGHTH);
 
     tone(PIEZO, NOTE_A4, QUARTER);
     // tone(PIEZO2, NOTE_A3, OEIGHTH);
-    // piezo1.play(NOTE_A4, QUARTER);
-    // piezo2.play(NOTE_A3, OEIGHTH);
     delay(OEIGHTH);
 
     tone(PIEZO2, NOTE_FS3, OEIGHTH);
-  //   piezo2.play(NOTE_FS3, OEIGHTH);
     delay(OEIGHTH);
 
     tone(PIEZO, NOTE_B4, OEIGHTH);
@@ -229,7 +257,7 @@ void play_Mr_Yobikomi2() {
   // tone(PIEZO2, NOTE_FS3, OEIGHTH);
   delay(OEIGHTH);
 
-  // // レレレミファ#ー (G)
+  // レレレミファ#ー (G)
   tone(PIEZO, NOTE_D4, OEIGHTH);
   // tone(PIEZO2, NOTE_G3, OEIGHTH);
   delay(OEIGHTH);
@@ -259,7 +287,7 @@ void play_Mr_Yobikomi2() {
   tone(PIEZO2, NOTE_D3, OEIGHTH);
   delay(OEIGHTH);
 
-  // // レレレミファ#ー (D)
+  // レレレミファ#ー (D)
   tone(PIEZO, NOTE_D4, OEIGHTH);
   // tone(PIEZO2, NOTE_D3, OEIGHTH);
   delay(OEIGHTH);
@@ -289,7 +317,7 @@ void play_Mr_Yobikomi2() {
   tone(PIEZO2, NOTE_A3, OEIGHTH);
   delay(OEIGHTH);
 
-  // // ミミミレミファ#(E);
+  // ミミミレミファ#(E);
   tone(PIEZO, NOTE_E4, OEIGHTH);
   // tone(PIEZO2, NOTE_E3, OEIGHTH);
   delay(OEIGHTH);
