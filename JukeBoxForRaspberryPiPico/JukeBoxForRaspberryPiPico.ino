@@ -27,7 +27,7 @@ struct Note {
 
 // 楽譜
 Note score[] = {
-  // ララーシラファ#ラ (D)
+  // お気に入りの唄～ (D)
   {NO_NOTE  , NO_NOTE  , OEIGHTH },
   {NOTE_C5  , NO_NOTE  , OEIGHTH },
   {NOTE_B4  , NO_NOTE  , OEIGHTH },
@@ -36,7 +36,7 @@ Note score[] = {
   {NOTE_G4  , NO_NOTE  , OEIGHTH },
   {NOTE_E4  , NO_NOTE  , OEIGHTH },
   {NOTE_G4  , NO_NOTE  , OEIGHTH },
-  // ララーシラファ#ラ (D)
+  // 一人～ (D)
   {NOTE_G4  , NO_NOTE  , OEIGHTH },
   {NOTE_G4  , NO_NOTE  , OEIGHTH },
   {NOTE_G4  , NO_NOTE  , OEIGHTH },
@@ -46,7 +46,7 @@ Note score[] = {
   {NOTE_G4  , NO_NOTE  , OEIGHTH },
   {NOTE_A4  , NO_NOTE  , ONE16TH },
   {NOTE_AS4 , NO_NOTE  , ONE16TH },
-  // レレレミファ#ーミ (Bm)
+  // 聴いてみるの～ (Bm)
   {NOTE_AS4 , NO_NOTE  , OEIGHTH },
   {NOTE_AS4 , NO_NOTE  , OEIGHTH },  
   {NO_NOTE  , NO_NOTE  , OEIGHTH },
@@ -56,18 +56,56 @@ Note score[] = {
   {NOTE_F4  , NO_NOTE  , OEIGHTH },
   {NOTE_E4  , NO_NOTE  , ONE16TH },
   {NOTE_F4  , NO_NOTE  , ONE16TH },
-  // ファ#ーララー (Bm)
+  // ～オリ (Bm)
   {NOTE_F4  , NO_NOTE  , OEIGHTH },
   {NOTE_F4  , NO_NOTE  , OEIGHTH },
   {NOTE_F4  , NO_NOTE  , OEIGHTH },
   {NOTE_F4  , NO_NOTE  , OEIGHTH },
   {NOTE_F4  , NO_NOTE  , OEIGHTH },
+  {NO_NOTE  , NO_NOTE  , OEIGHTH },
   {NOTE_F4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  // ビアは淋しい
+  {NOTE_GS4 , NO_NOTE  , OEIGHTH },
+  {NOTE_GS4 , NO_NOTE  , OEIGHTH },
+  {NOTE_GS4 , NO_NOTE  , OEIGHTH },
+  {NO_NOTE  , NO_NOTE  , ONE16TH },
+  {NOTE_GS4 , NO_NOTE  , ONE16TH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
   {NOTE_F4  , NO_NOTE  , OEIGHTH },
+  {NOTE_DS4 , NO_NOTE  , OEIGHTH },
   {NOTE_F4  , NO_NOTE  , OEIGHTH },
+  // 心～慰めて
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NO_NOTE  , NO_NOTE  , OEIGHTH },
+  {NO_NOTE  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  // くれるか
+  {NOTE_FS4 , NO_NOTE  , OEIGHTH },
+  {NOTE_FS4 , NO_NOTE  , OEIGHTH },
+  {NO_NOTE  , NO_NOTE  , OEIGHTH },
+  {NO_NOTE  , NO_NOTE  , OEIGHTH },
+  {NOTE_FS4 , NO_NOTE  , OEIGHTH },
+  {NOTE_FS4 , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_A4  , NO_NOTE  , ONE16TH },
+  {NOTE_B4  , NO_NOTE  , OEIGHTH },
+  // ら～
+  {NOTE_B4  , NO_NOTE  , OEIGHTH },
+  {NOTE_B4  , NO_NOTE  , OEIGHTH },
+  {NOTE_B4  , NO_NOTE  , OEIGHTH },
+  {NOTE_B4  , NO_NOTE  , OEIGHTH },
+  {NOTE_B4  , NO_NOTE  , OEIGHTH },
+  {NOTE_B4  , NO_NOTE  , OEIGHTH },
+  {NOTE_B4  , NO_NOTE  , OEIGHTH },
+  {NO_NOTE  , NO_NOTE  , OEIGHTH },
 };
 
-volatile unsigned int lastInterrupt = 0;
+volatile unsigned int lastInterrupt = millis();
 
 volatile bool switchstate = 0;
 
@@ -110,8 +148,8 @@ void setPWMTone(uint pin, uint freq) {
   pwm_set_clkdiv(slice, divider);
   pwm_set_wrap(slice, wrap);
 
-  Serial.print("slice=");
-  Serial.println(slice);
+  // Serial.print("slice=");
+  // Serial.println(slice);
 
   pwm_set_chan_level(
       slice,
@@ -170,16 +208,19 @@ void loop() {
   delay(100);
   digitalWrite(LED, LOW);
   delay(100);
-  switchstate = digitalRead(BUTTON);
+  // switchstate = digitalRead(BUTTON);
   while ( switchstate == HIGH ) {
     // play_Mr_Yobikomi2();
-    playMrYobikomiPWM();
+
+    // 初回はLEDが光らない場合があるので、ここでswtichstateをLEDに反映
+    digitalWrite(LED, switchstate);
+    playScorePWM();
     stopPWMTone(PIEZO);
     stopPWMTone(PIEZO2);
   }
 }
 
-void playMrYobikomiPWM() {
+void playScorePWM() {
   for (int i = 0; i < scoreLength; i++) {
     playNote(score[i]);
   }
