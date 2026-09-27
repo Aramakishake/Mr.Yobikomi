@@ -1,31 +1,15 @@
 // #include <Tone.h>
 #include "hardware/pwm.h"
+#include "MusicDefs.h"
  // チャタリング防止のための時間(ms)
 #define BUTTON_DULATION 200
 
 // テンポ(BPM 125)
+#define ONE16TH 120 // 16分
 #define OEIGHTH 240 // 8分
 #define QUARTER 480 // 4分
 #define HALF 960 // 2分
 
-// TODO:これもうライブラリ化したほうが良いかも
-// 音程(多分Dメジャーキー)
-#define NOTE_D4 294
-#define NOTE_E4 330
-#define NOTE_FS4 370
-#define NOTE_G4 392
-#define NOTE_A4 440
-#define NOTE_B4 494
-// 音程(コーラス用)
-#define NOTE_D3 147
-#define NOTE_FS3 185
-#define NOTE_A3 220
-#define NOTE_B2 124
-#define NOTE_G3 196
-#define NOTE_E3 165
-#define NOTE_B3 247
-#define NOTE_GS3 208
-#define NOTE_CS4 262
 // ピン位置の定義
  // メロディ用ピエゾ素子
 #define PIEZO 5
@@ -44,77 +28,43 @@ struct Note {
 // 楽譜
 Note score[] = {
   // ララーシラファ#ラ (D)
-  {NOTE_A4  , NOTE_D3  , OEIGHTH },
-  {NOTE_A4  , NOTE_A3  , OEIGHTH },
-  {NOTE_A4  , NOTE_FS3 , OEIGHTH },
-  {NOTE_B4  , NOTE_A3  , OEIGHTH },
-  {NOTE_A4  , NOTE_D3  , OEIGHTH },
-  {NOTE_FS4 , NOTE_A3  , OEIGHTH },
-  {NOTE_A4  , NOTE_FS3 , OEIGHTH },
-  {NOTE_A4  , NOTE_A3  , OEIGHTH },
+  {NO_NOTE  , NO_NOTE  , OEIGHTH },
+  {NOTE_C5  , NO_NOTE  , OEIGHTH },
+  {NOTE_B4  , NO_NOTE  , OEIGHTH },
+  {NOTE_C5  , NO_NOTE  , OEIGHTH },
+  {NOTE_B4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_E4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
   // ララーシラファ#ラ (D)
-  {NOTE_A4  , NOTE_D3  , OEIGHTH },
-  {NOTE_A4  , NOTE_A3  , OEIGHTH },
-  {NOTE_A4  , NOTE_FS3 , OEIGHTH },
-  {NOTE_B4  , NOTE_A3  , OEIGHTH },
-  {NOTE_A4  , NOTE_D3  , OEIGHTH },
-  {NOTE_FS4 , NOTE_A3  , OEIGHTH },
-  {NOTE_A4  , NOTE_FS3 , OEIGHTH },
-  {NOTE_A4  , NOTE_A3  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NO_NOTE  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_A4  , NO_NOTE  , ONE16TH },
+  {NOTE_AS4 , NO_NOTE  , ONE16TH },
   // レレレミファ#ーミ (Bm)
-  {NOTE_D4  , NOTE_B2  , OEIGHTH },
-  {NOTE_D4  , NOTE_FS3 , OEIGHTH },
-  {NOTE_D4  , NOTE_D3  , OEIGHTH },
-  {NOTE_E4  , NOTE_FS3 , OEIGHTH },
-  {NOTE_FS4 , NOTE_B2  , OEIGHTH },
-  {NOTE_FS4 , NOTE_FS3 , OEIGHTH },
-  {NOTE_FS4 , NOTE_D3  , OEIGHTH },
-  {NOTE_E4  , NOTE_FS3 , OEIGHTH },
+  {NOTE_AS4 , NO_NOTE  , OEIGHTH },
+  {NOTE_AS4 , NO_NOTE  , OEIGHTH },  
+  {NO_NOTE  , NO_NOTE  , OEIGHTH },
+  {NOTE_AS4 , NO_NOTE  , OEIGHTH },
+  {NOTE_A4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_F4  , NO_NOTE  , OEIGHTH },
+  {NOTE_E4  , NO_NOTE  , ONE16TH },
+  {NOTE_F4  , NO_NOTE  , ONE16TH },
   // ファ#ーララー (Bm)
-  {NOTE_FS4 , NOTE_B2  , OEIGHTH },
-  {NOTE_FS4 , NOTE_FS3 , OEIGHTH },
-  {NOTE_FS4 , NOTE_D3  , OEIGHTH },
-  {NOTE_A4  , NOTE_FS3 , OEIGHTH },
-  {NOTE_A4  , NOTE_B2  , OEIGHTH },
-  {NOTE_A4  , NOTE_FS3 , OEIGHTH },
-  {NOTE_A4  , NOTE_D3  , OEIGHTH },
-  {NOTE_A4  , NOTE_FS3 , OEIGHTH },
-  // レレレミファ#ー (G)
-  {NOTE_D4  , NOTE_G3  , OEIGHTH },
-  {NOTE_D4  , NOTE_D3  , OEIGHTH },
-  {NOTE_D4  , NOTE_B2  , OEIGHTH },
-  {NOTE_E4  , NOTE_D3  , OEIGHTH },
-  {NOTE_FS4 , NOTE_G3  , OEIGHTH },
-  {NOTE_FS4 , NOTE_D3  , OEIGHTH },
-  {NOTE_FS4 , NOTE_B2  , OEIGHTH },
-  {NOTE_FS4 , NOTE_D3  , OEIGHTH },
-  // レレレミファ#ー (D)
-  {NOTE_D4  , NOTE_D3  , OEIGHTH },
-  {NOTE_D4  , NOTE_A3  , OEIGHTH },
-  {NOTE_D4  , NOTE_FS3 , OEIGHTH },
-  {NOTE_E4  , NOTE_A3  , OEIGHTH },
-  {NOTE_FS4 , NOTE_D3  , OEIGHTH },
-  {NOTE_FS4 , NOTE_A3  , OEIGHTH },
-  {NOTE_FS4 , NOTE_FS3 , OEIGHTH },
-  {NOTE_FS4 , NOTE_A3  , OEIGHTH },
-  // ミミミレミファ# (E)
-  {NOTE_E4  , NOTE_E3  , OEIGHTH },
-  {NOTE_E4  , NOTE_B3  , OEIGHTH },
-  {NOTE_E4  , NOTE_GS3 , OEIGHTH },
-  {NOTE_D4  , NOTE_B3  , OEIGHTH },
-  {NOTE_E4  , NOTE_E3  , OEIGHTH },
-  {NOTE_E4  , NOTE_B3  , OEIGHTH },
-  {NOTE_FS4 , NOTE_GS3 , OEIGHTH },
-  {NOTE_FS4 , NOTE_B3  , OEIGHTH },
-  // ラソファ#ミ(Asus4 A)
-  {NOTE_A4  , NOTE_A3  , OEIGHTH },
-  {NOTE_A4  , NOTE_E4  , OEIGHTH },
-  {NOTE_G4  , NOTE_D4  , OEIGHTH },
-  {NOTE_G4  , NOTE_E4  , OEIGHTH },
-  {NOTE_FS4 , NOTE_FS4 , OEIGHTH },
-  {NOTE_FS4 , NOTE_E4  , OEIGHTH },
-  {NOTE_E4  , NOTE_CS4 , OEIGHTH },
-  {NOTE_E4  , NOTE_E4  , OEIGHTH },
+  {NOTE_F4  , NO_NOTE  , OEIGHTH },
+  {NOTE_F4  , NO_NOTE  , OEIGHTH },
+  {NOTE_F4  , NO_NOTE  , OEIGHTH },
+  {NOTE_F4  , NO_NOTE  , OEIGHTH },
+  {NOTE_F4  , NO_NOTE  , OEIGHTH },
+  {NOTE_F4  , NO_NOTE  , OEIGHTH },
+  {NOTE_F4  , NO_NOTE  , OEIGHTH },
+  {NOTE_F4  , NO_NOTE  , OEIGHTH },
 };
 
 volatile unsigned int lastInterrupt = 0;
