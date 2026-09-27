@@ -1,10 +1,14 @@
 // #include <Tone.h>
 #include "hardware/pwm.h"
+ // チャタリング防止のための時間(ms)
+#define BUTTON_DULATION 200
+
 // テンポ(BPM 125)
 #define OEIGHTH 240 // 8分
 #define QUARTER 480 // 4分
 #define HALF 960 // 2分
 
+// TODO:これもうライブラリ化したほうが良いかも
 // 音程(多分Dメジャーキー)
 #define NOTE_D4 294
 #define NOTE_E4 330
@@ -22,8 +26,6 @@
 #define NOTE_B3 247
 #define NOTE_GS3 208
 #define NOTE_CS4 262
-// 音程一帯が不要になった
-// 理由：Tone.hでDefineしているため
 // ピン位置の定義
  // メロディ用ピエゾ素子
 #define PIEZO 5
@@ -31,9 +33,6 @@
 #define PIEZO2 6
 #define BUTTON 1
 #define LED 0
-
-// Tone piezo1;
-// Tone piezo2;
 
 // 楽譜
 struct Note {
@@ -47,21 +46,28 @@ Note scorePhraseA[] = {
   {NOTE_A4, NOTE_D3, OEIGHTH}
 };
 
+volatile unsigned int lastInterrupt = 0;
+
 volatile bool switchstate = 0;
 
-void change_switchstate() {  
+void change_switchstate() {
+  // チャタリング防止のため早すぎる再呼び出しの場合は早期return
+  unsigned long now = millis();
+
+  if (now - lastInterrupt < BUTTON_DULATION) {
+    return;
+  }
+
+  // スイッチ反転
   switchstate = !switchstate;
-  // HIGHの場合はLOWに、LOWの場合はHIGHにスイッチ状態を変更
-  // switchstate ^= HIGH;
-  // 現在のswitchstateをSerialMonitorに出力
-  // Serial.print("switchstate=");
-  // Serial.println(switchstate);
-  // スイッチ状態がHIGHの場合はLEDを点灯、LOWの場合は消灯
+  // スイッチがHIGHの場合はLEDを点灯、LOWの場合は消灯
   digitalWrite(LED, switchstate);
-  // // ボタン押下時に切り替わりが頻繁に起きないようにするため1s待つ
-  // delay(1000);
+  // 最終呼び出し時間を更新
+  lastInterrupt = now;
 }
 
+
+// PWMを使用して複数ブザーを鳴らす方式
 // const int scoreLength = sizeof(score) / sizeof(score[0]);
 
 // void setPWMTone(uint pin, uint freq) {
