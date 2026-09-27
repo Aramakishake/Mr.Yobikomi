@@ -41,16 +41,80 @@ struct Note {
   uint duration;
 };
 
-// Aメロを楽譜化
-Note scorePhraseA[] = {
-  {NOTE_A4  , NOTE_D3 , OEIGHTH },
-  {NOTE_A4  , NOTE_A3 , OEIGHTH },
-  {NOTE_A4  , NOTE_FS3, OEIGHTH },
-  {NOTE_B4  , NOTE_A3 , OEIGHTH },
-  {NOTE_A4  , NOTE_D3 , OEIGHTH },
-  {NOTE_FS4 , NOTE_A3 , OEIGHTH },
-  {NOTE_A4  , NOTE_FS3, OEIGHTH },
-  {NOTE_A4  , NOTE_A3 , OEIGHTH },
+// 楽譜
+Note score[] = {
+  // ララーシラファ#ラ (D)
+  {NOTE_A4  , NOTE_D3  , OEIGHTH },
+  {NOTE_A4  , NOTE_A3  , OEIGHTH },
+  {NOTE_A4  , NOTE_FS3 , OEIGHTH },
+  {NOTE_B4  , NOTE_A3  , OEIGHTH },
+  {NOTE_A4  , NOTE_D3  , OEIGHTH },
+  {NOTE_FS4 , NOTE_A3  , OEIGHTH },
+  {NOTE_A4  , NOTE_FS3 , OEIGHTH },
+  {NOTE_A4  , NOTE_A3  , OEIGHTH },
+  // ララーシラファ#ラ (D)
+  {NOTE_A4  , NOTE_D3  , OEIGHTH },
+  {NOTE_A4  , NOTE_A3  , OEIGHTH },
+  {NOTE_A4  , NOTE_FS3 , OEIGHTH },
+  {NOTE_B4  , NOTE_A3  , OEIGHTH },
+  {NOTE_A4  , NOTE_D3  , OEIGHTH },
+  {NOTE_FS4 , NOTE_A3  , OEIGHTH },
+  {NOTE_A4  , NOTE_FS3 , OEIGHTH },
+  {NOTE_A4  , NOTE_A3  , OEIGHTH },
+  // レレレミファ#ーミ (Bm)
+  {NOTE_D4  , NOTE_B2  , OEIGHTH },
+  {NOTE_D4  , NOTE_FS3 , OEIGHTH },
+  {NOTE_D4  , NOTE_D3  , OEIGHTH },
+  {NOTE_E4  , NOTE_FS3 , OEIGHTH },
+  {NOTE_FS4 , NOTE_B2  , OEIGHTH },
+  {NOTE_FS4 , NOTE_FS3 , OEIGHTH },
+  {NOTE_FS4 , NOTE_D3  , OEIGHTH },
+  {NOTE_E4  , NOTE_FS3 , OEIGHTH },
+  // ファ#ーララー (Bm)
+  {NOTE_FS4 , NOTE_B2  , OEIGHTH },
+  {NOTE_FS4 , NOTE_FS3 , OEIGHTH },
+  {NOTE_FS4 , NOTE_D3  , OEIGHTH },
+  {NOTE_A4  , NOTE_FS3 , OEIGHTH },
+  {NOTE_A4  , NOTE_B2  , OEIGHTH },
+  {NOTE_A4  , NOTE_FS3 , OEIGHTH },
+  {NOTE_A4  , NOTE_D3  , OEIGHTH },
+  {NOTE_A4  , NOTE_FS3 , OEIGHTH },
+  // レレレミファ#ー (G)
+  {NOTE_D4  , NOTE_G3  , OEIGHTH },
+  {NOTE_D4  , NOTE_D3  , OEIGHTH },
+  {NOTE_D4  , NOTE_B2  , OEIGHTH },
+  {NOTE_E4  , NOTE_D3  , OEIGHTH },
+  {NOTE_FS4 , NOTE_G3  , OEIGHTH },
+  {NOTE_FS4 , NOTE_D3  , OEIGHTH },
+  {NOTE_FS4 , NOTE_B2  , OEIGHTH },
+  {NOTE_FS4 , NOTE_D3  , OEIGHTH },
+  // レレレミファ#ー (D)
+  {NOTE_D4  , NOTE_D3  , OEIGHTH },
+  {NOTE_D4  , NOTE_A3  , OEIGHTH },
+  {NOTE_D4  , NOTE_FS3 , OEIGHTH },
+  {NOTE_E4  , NOTE_A3  , OEIGHTH },
+  {NOTE_FS4 , NOTE_D3  , OEIGHTH },
+  {NOTE_FS4 , NOTE_A3  , OEIGHTH },
+  {NOTE_FS4 , NOTE_FS3 , OEIGHTH },
+  {NOTE_FS4 , NOTE_A3  , OEIGHTH },
+  // ミミミレミファ# (E)
+  {NOTE_E4  , NOTE_E3  , OEIGHTH },
+  {NOTE_E4  , NOTE_B3  , OEIGHTH },
+  {NOTE_E4  , NOTE_GS3 , OEIGHTH },
+  {NOTE_D4  , NOTE_B3  , OEIGHTH },
+  {NOTE_E4  , NOTE_E3  , OEIGHTH },
+  {NOTE_E4  , NOTE_B3  , OEIGHTH },
+  {NOTE_FS4 , NOTE_GS3 , OEIGHTH },
+  {NOTE_FS4 , NOTE_B3  , OEIGHTH },
+  // ラソファ#ミ(Asus4 A)
+  {NOTE_A4  , NOTE_A3  , OEIGHTH },
+  {NOTE_A4  , NOTE_E4  , OEIGHTH },
+  {NOTE_G4  , NOTE_D4  , OEIGHTH },
+  {NOTE_G4  , NOTE_E4  , OEIGHTH },
+  {NOTE_FS4 , NOTE_FS4 , OEIGHTH },
+  {NOTE_FS4 , NOTE_E4  , OEIGHTH },
+  {NOTE_E4  , NOTE_CS4 , OEIGHTH },
+  {NOTE_E4  , NOTE_E4  , OEIGHTH },
 };
 
 volatile unsigned int lastInterrupt = 0;
@@ -74,7 +138,7 @@ void change_switchstate() {
 
 
 // PWMを使用して複数ブザーを鳴らす方式
-const int scoreLength = sizeof(scorePhraseA) / sizeof(scorePhraseA[0]);
+const int scoreLength = sizeof(score) / sizeof(score[0]);
 
 void setPWMTone(uint pin, uint freq) {
 
@@ -167,7 +231,7 @@ void loop() {
 
 void playMrYobikomiPWM() {
   for (int i = 0; i < scoreLength; i++) {
-    playNote(scorePhraseA[i]);
+    playNote(score[i]);
   }
 }
 
