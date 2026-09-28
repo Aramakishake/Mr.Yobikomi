@@ -25,8 +25,8 @@ struct Note {
   uint duration;
 };
 
-// 楽譜
-Note score[] = {
+// Aメロ楽譜
+Note scoreAmero[] = {
   // お気に入りの唄～ (D)
   {NO_NOTE  , NO_NOTE  , OEIGHTH },
   {NOTE_C5  , NO_NOTE  , OEIGHTH },
@@ -105,6 +105,49 @@ Note score[] = {
   {NO_NOTE  , NO_NOTE  , OEIGHTH },
 };
 
+Note scoreSabi[] = {
+  // 出会った頃は～
+  {NOTE_C5  , NO_NOTE  , OEIGHTH },
+  {NO_NOTE  , NO_NOTE  , OEIGHTH },
+  {NOTE_C5  , NO_NOTE  , OEIGHTH },
+  {NOTE_E5  , NO_NOTE  , ONE16TH },
+  {NOTE_D5  , NO_NOTE  , ONE16TH },
+  {NOTE_D5  , NO_NOTE  , OEIGHTH },
+  {NOTE_D5  , NO_NOTE  , OEIGHTH },
+  {NOTE_D5  , NO_NOTE  , OEIGHTH },
+  {NOTE_D5  , NO_NOTE  , OEIGHTH },
+  // こんな日が～
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NO_NOTE  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_D5  , NO_NOTE  , ONE16TH },
+  {NOTE_C5  , NO_NOTE  , ONE16TH },
+  {NOTE_C5  , NO_NOTE  , OEIGHTH },
+  {NOTE_C5  , NO_NOTE  , OEIGHTH },
+  {NOTE_C5  , NO_NOTE  , OEIGHTH },
+  {NOTE_C5  , NO_NOTE  , OEIGHTH },
+  // 来るとは思わずにい
+  {NOTE_F4  , NO_NOTE  , OEIGHTH },
+  {NO_NOTE  , NO_NOTE  , OEIGHTH },
+  {NOTE_F4  , NO_NOTE  , OEIGHTH },
+  {NOTE_C5  , NO_NOTE  , ONE16TH },
+  {NOTE_B4  , NO_NOTE  , ONE16TH },
+  {NOTE_B4  , NO_NOTE  , OEIGHTH },
+  {NOTE_C5  , NO_NOTE  , OEIGHTH },
+  {NOTE_B4  , NO_NOTE  , OEIGHTH },
+  {NOTE_A4  , NO_NOTE  , ONE16TH },
+  {NOTE_G4  , NO_NOTE  , ONE16TH },
+  // た～
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+  {NOTE_G4  , NO_NOTE  , OEIGHTH },
+};
+
 volatile unsigned int lastInterrupt = millis();
 
 volatile bool switchstate = 0;
@@ -126,8 +169,8 @@ void change_switchstate() {
 
 
 // PWMを使用して複数ブザーを鳴らす方式
-const int scoreLength = sizeof(score) / sizeof(score[0]);
-
+const int scoreAmeroLength = sizeof(scoreAmero) / sizeof(scoreAmero[0]);
+const int scoreSabiLength = sizeof(scoreSabi) / sizeof(scoreSabi[0]);
 void setPWMTone(uint pin, uint freq) {
 
   uint slice = pwm_gpio_to_slice_num(pin);
@@ -169,6 +212,8 @@ void playNote(const Note& note)
     // Serial.print("bassFreq=");
     // Serial.println(note.bassFreq);
     delay(note.duration);
+    stopPWMTone(PIEZO);
+    stopPWMTone(PIEZO2);
 }
 
 void stopPWMTone(uint pin)
@@ -221,8 +266,13 @@ void loop() {
 }
 
 void playScorePWM() {
-  for (int i = 0; i < scoreLength; i++) {
-    playNote(score[i]);
+  // for (int j = 0; j < 2; j++) {
+  //   for (int i = 0; i < scoreAmeroLength; i++) {
+  //     playNote(scoreAmero[i]);
+  //   }
+  // }
+  for (int i = 0; i < scoreSabiLength; i++) {
+    playNote(scoreSabi[i]);
   }
 }
 
