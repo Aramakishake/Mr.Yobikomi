@@ -1,5 +1,6 @@
 // #include <Tone.h>
 #include "hardware/pwm.h"
+#include "MusicDefs.h"
  // チャタリング防止のための時間(ms)
 #define BUTTON_DULATION 200
 
@@ -9,23 +10,23 @@
 #define HALF 960 // 2分
 
 // TODO:これもうライブラリ化したほうが良いかも
-// 音程(多分Dメジャーキー)
-#define NOTE_D4 294
-#define NOTE_E4 330
-#define NOTE_FS4 370
-#define NOTE_G4 392
-#define NOTE_A4 440
-#define NOTE_B4 494
-// 音程(コーラス用)
-#define NOTE_D3 147
-#define NOTE_FS3 185
-#define NOTE_A3 220
-#define NOTE_B2 124
-#define NOTE_G3 196
-#define NOTE_E3 165
-#define NOTE_B3 247
-#define NOTE_GS3 208
-#define NOTE_CS4 262
+// // 音程(多分Dメジャーキー)
+// #define NOTE_D4 294
+// #define NOTE_E4 330
+// #define NOTE_FS4 370
+// #define NOTE_G4 392
+// #define NOTE_A4 440
+// #define NOTE_B4 494
+// // 音程(コーラス用)
+// #define NOTE_D3 147
+// #define NOTE_FS3 185
+// #define NOTE_A3 220
+// #define NOTE_B2 124
+// #define NOTE_G3 196
+// #define NOTE_E3 165
+// #define NOTE_B3 247
+// #define NOTE_GS3 208
+// #define NOTE_CS4 262
 // ピン位置の定義
  // メロディ用ピエゾ素子
 #define PIEZO 5
@@ -131,7 +132,7 @@ void change_switchstate() {
   // スイッチ反転
   switchstate = !switchstate;
   // スイッチがHIGHの場合はLEDを点灯、LOWの場合は消灯
-  digitalWrite(LED, switchstate);
+  -00000000000000000000000000000000000000011111111111111111111111111
   // 最終呼び出し時間を更新
   lastInterrupt = now;
 }
