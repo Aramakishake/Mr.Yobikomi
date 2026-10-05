@@ -266,14 +266,14 @@ void loop() {
 }
 
 void playScorePWM() {
-  // for (int j = 0; j < 2; j++) {
-  //   for (int i = 0; i < scoreAmeroLength; i++) {
-  //     playNote(scoreAmero[i]);
-  //   }
-  // }
-  for (int i = 0; i < scoreSabiLength; i++) {
-    playNote(scoreSabi[i]);
+  for (int j = 0; j < 2; j++) {
+    for (int i = 0; i < scoreAmeroLength; i++) {
+      playNote(scoreAmero[i]);
+    }
   }
+  // for (int i = 0; i < scoreSabiLength; i++) {
+  //   playNote(scoreSabi[i]);
+  // }
 }
 
 // 注)複数のピエゾ素子に対してtone関数を使うことはできないっぽい
