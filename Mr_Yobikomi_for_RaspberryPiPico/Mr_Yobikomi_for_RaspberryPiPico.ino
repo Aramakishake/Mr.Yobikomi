@@ -132,7 +132,7 @@ void change_switchstate() {
   // スイッチ反転
   switchstate = !switchstate;
   // スイッチがHIGHの場合はLEDを点灯、LOWの場合は消灯
-  -00000000000000000000000000000000000000011111111111111111111111111
+  digitalWrite(LED, switchstate);
   // 最終呼び出し時間を更新
   lastInterrupt = now;
 }
